@@ -4,7 +4,9 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
-import '../containers/App.css'
+import Loader from 'react-loader-spinner';
+import '../containers/App.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { setSearchField, requestRobots } from '../actions';
 
 const mapStateToProps = state => {
@@ -26,7 +28,7 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
 
     componentDidMount() {
-       this.props.onRequestRobots();
+        this.props.onRequestRobots();
     }
 
     render() {
@@ -38,7 +40,17 @@ class App extends Component {
                     .includes(searchField.toLowerCase());
             });
         return isPending ?
-            <h3 className="tc f2">LOADING...</h3> :
+            <div className="tc">
+                <h3 className="f2">LOADING...</h3>
+                <Loader
+                    type="Triangle"
+                    color="#DBD65C"
+                    height={100}
+                    width={100}
+                    timeout={0} 
+
+                />
+            </div> :
             <div className="tc">
                 <h3 className="f2">ROBOFRIENDS</h3>
                 <SearchBox searchChange={onSearchChange} />
